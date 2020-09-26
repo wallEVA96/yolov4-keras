@@ -32,23 +32,27 @@ def kmeans(box,k):
     np.random.seed()
 
     # 随机选5个当聚类中心
+    print("box:", box)
+    print("row:", row)
+    print("k:", k)
     cluster = box[np.random.choice(row,k,replace = False)]
+    print("cluster:", cluster)
     # cluster = random.sample(row, k)
     while True:
         # 计算每一行距离五个点的iou情况。
         for i in range(row):
             distance[i] = 1 - cas_iou(box[i],cluster)
-        
+    
         # 取出最小点
         near = np.argmin(distance,axis=1)
-
         if (last_clu == near).all():
             break
-        
+
         # 求每一个类的中位点
         for j in range(k):
-            cluster[j] = np.median(
-                box[near == j],axis=0)
+            tmp_box=box[near == j]
+            if len(tmp_box) != 0:
+                cluster[j] = np.median(tmp_box,axis=0)
 
         last_clu = near
 
@@ -88,7 +92,7 @@ if __name__ == '__main__':
     # 载入所有的xml
     # 存储格式为转化为比例后的width,height
     data = load_data(path)
-    
+    print("load data ", data)
     # 使用k聚类算法
     out = kmeans(data,anchors_num)
     out = out[np.argsort(out[:,0])]

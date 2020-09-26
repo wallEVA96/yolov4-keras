@@ -15,10 +15,11 @@ from utils.utils import letterbox_image
 #--------------------------------------------#
 class YOLO(object):
     _defaults = {
-        "model_path": 'model_data/yolo4_weight.h5',
-        "anchors_path": 'model_data/yolo_anchors.txt',
-        "classes_path": 'model_data/coco_classes.txt',
-        "score" : 0.5,
+        #"model_path" : 'model_data/yolo4_voc_weights.h5',
+        "model_path": 'model_data/kobe.h5',
+        "classes_path" : 'model_data/gt_classes.txt',
+        "anchors_path" : 'model_data/yolo_anchors.txt',
+        "score" : 0.2,
         "iou" : 0.3,
         # 显存比较小可以使用416x416
         # 显存比较大可以使用608x608
@@ -181,3 +182,4 @@ class YOLO(object):
 
     def close_session(self):
         self.sess.close()
+

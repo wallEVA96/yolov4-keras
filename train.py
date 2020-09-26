@@ -142,14 +142,14 @@ if __name__ == "__main__":
     # 标签的位置
     annotation_path = '2007_train.txt'
     # 获取classes和anchor的位置
-    classes_path = 'model_data/voc_classes.txt'    
+    classes_path = 'model_data/gt_classes.txt'
     anchors_path = 'model_data/yolo_anchors.txt'
     #------------------------------------------------------#
     #   权值文件请看README，百度网盘下载
     #   训练自己的数据集时提示维度不匹配正常
     #   预测的东西都不一样了自然维度不匹配
     #------------------------------------------------------#
-    weights_path = 'model_data/yolo4_weight.h5'
+    weights_path = 'logs/ep062-loss21.590-val_loss21.515.h5'
     # 获得classes和anchor
     class_names = get_classes(classes_path)
     anchors = get_anchors(anchors_path)
@@ -180,7 +180,7 @@ if __name__ == "__main__":
     # 载入预训练权重
     print('Load weights {}.'.format(weights_path))
     model_body.load_weights(weights_path, by_name=True, skip_mismatch=True)
-    
+
     # y_true为13,13,3,85
     # 26,26,3,85
     # 52,52,3,85
